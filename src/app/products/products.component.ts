@@ -59,6 +59,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { ProductsService,Product } from '../services/products.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-products',
@@ -73,9 +74,11 @@ export class ProductsComponent implements OnInit {
     price: 0,
   };
 
-  constructor(private productsService: ProductsService) {}
+  constructor(private productsService: ProductsService, private activeRoute:ActivatedRoute ) {}
 
   ngOnInit(): void {
+    const id= this.activeRoute.snapshot.paramMap.get('id')
+    alert(id)
     this.products = this.productsService.getProducts(); 
   }
 
@@ -101,4 +104,8 @@ export class ProductsComponent implements OnInit {
   private resetNewProduct(): void {
     this.newProduct = { name: '', description: '', price: 0 };
   }
+
+  // getProductByIndex(index:number){
+  //   this.products.at(index)
+  // }
 }

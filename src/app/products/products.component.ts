@@ -58,8 +58,7 @@
 
 
 import { Component, OnInit } from '@angular/core';
-import { ProductsService,Product } from '../services/products.service';
-import { ActivatedRoute } from '@angular/router';
+import { ProductsService, Product } from '../services/products.service';
 
 @Component({
   selector: 'app-products',
@@ -74,12 +73,10 @@ export class ProductsComponent implements OnInit {
     price: 0,
   };
 
-  constructor(private productsService: ProductsService, private activeRoute:ActivatedRoute ) {}
+  constructor(private productsService: ProductsService) {}
 
-  ngOnInit(): void {
-    const id= this.activeRoute.snapshot.paramMap.get('id')
-    alert(id)
-    this.products = this.productsService.getProducts(); 
+  ngOnInit() {
+    this.products = this.productsService.getProducts();
   }
 
   addProduct(): void {
@@ -89,7 +86,7 @@ export class ProductsComponent implements OnInit {
       this.newProduct.price > 0
     ) {
       this.productsService.addProduct({ ...this.newProduct });
-      this.products = this.productsService.getProducts(); 
+      this.products = this.productsService.getProducts();
       this.resetNewProduct();
     } else {
       alert('Please fill in all fields with valid values.');
@@ -98,14 +95,10 @@ export class ProductsComponent implements OnInit {
 
   deleteProduct(index: number): void {
     this.productsService.deleteProduct(index);
-    this.products = this.productsService.getProducts(); 
+    this.products = this.productsService.getProducts();
   }
 
   private resetNewProduct(): void {
     this.newProduct = { name: '', description: '', price: 0 };
   }
-
-  // getProductByIndex(index:number){
-  //   this.products.at(index)
-  // }
 }

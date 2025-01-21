@@ -7,7 +7,7 @@ export interface Product {
 }
 
 @Injectable({
-  providedIn: 'root', // this will Makes the service available globally
+  providedIn: 'root', // Service is globally available
 })
 export class ProductsService {
   private products: Product[] = [
@@ -17,9 +17,9 @@ export class ProductsService {
 
   constructor() {}
 
-  // this will Get all products
+  // Get all products
   getProducts(): Product[] {
-    return [...this.products]; // this will Return a copy to prevent direct modification
+    return [...this.products]; // Return a copy to prevent direct modification
   }
 
   // Add a new product
@@ -29,14 +29,13 @@ export class ProductsService {
 
   // Delete a product by index
   deleteProduct(index: number): void {
-    this.products.splice(index, 1);
+    if (index >= 0 && index < this.products.length) {
+      this.products.splice(index, 1);
+    }
   }
 
-  getProductByIndex(index:number|null){
-    if (index == null)
-      return null
-    return this.products[index];
+  // Get product by index
+  getProductByIndex(index: number): Product | null {
+    return this.products[index] ?? null;
   }
-
-  
 }

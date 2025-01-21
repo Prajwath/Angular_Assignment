@@ -35,7 +35,7 @@ export class ProductsService {
   getProductByIndex(index:number|null){
     if (index == null)
       return null
-    return this.products[index] || null;
+    return this.products[index];
   }
 
   
